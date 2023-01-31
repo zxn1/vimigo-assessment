@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Controller extends BaseController
 {
@@ -23,5 +24,10 @@ class Controller extends BaseController
             ->get();
 
         return response()->json($student);
+    }
+
+    public function bulkOperation(Request $request)
+    {
+        
     }
 }
