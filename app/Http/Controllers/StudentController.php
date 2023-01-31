@@ -22,9 +22,21 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //if success creating student then response OK
+        if(Student::create($request->all()))
+        {
+            return response([
+                'status' => 'OK',
+                'message' => 'Successfully stored the student!'
+            ]);
+        } else {
+            return response([
+                'status' => 'KO',
+                'message' => 'Failed to store the student!'
+            ]);
+        }
     }
 
     /**

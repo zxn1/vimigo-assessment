@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,13 @@ Route::group(['middleware' => 'auth:api'], function()
 {
     Route::get('/test', function(){ return response(['test' => 'ok'], 200);}); //for testing secured link
 
-
+    //routes
+    Route::resource('student', StudentController::class); //to access resource function in controller
+    /*
+    notes to use resource
+    route(student.index) = localhost:8000/api/student/index
+    route(student.create) = localhost:8000/api/student/create
+    route(student.edit) = localhost:8000/api/student/edit
+     */
 });
 /* end secured route */
