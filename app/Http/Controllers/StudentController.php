@@ -12,9 +12,11 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //display with paginate
+        $student = Student::select('name', 'address')->paginate(4); //only display name and address
+        return response()->json($student);
     }
 
     /**

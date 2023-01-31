@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth:api'], function()
     Route::resource('student', StudentController::class); //to access resource function in controller
     /*
     notes to use resource
-    route(student.index) = localhost:8000/api/student/index
+    route(student.index) = localhost:8000/api/student?page=1
     route(student.create) = localhost:8000/api/student/create
     route(student.edit) = localhost:8000/api/student/edit
      */
