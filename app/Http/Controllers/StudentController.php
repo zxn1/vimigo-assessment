@@ -24,16 +24,17 @@ class StudentController extends Controller
      */
     public function create(Request $request)
     {
-        //if success creating student then response OK
-        if(Student::create($request->all()))
+        //if success creating student then response name and address
+        $student = Student::create($request->all());
+        if($student)
         {
             return response([
-                'status' => 'OK',
-                'message' => 'Successfully stored the student!'
+                'student_name' => $student->name,
+                'student_address' => $student->address,
             ]);
         } else {
             return response([
-                'status' => 'KO',
+                'status' => 'K.O',
                 'message' => 'Failed to store the student!'
             ]);
         }
