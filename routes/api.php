@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:api'], function()
     Route::get('/test', function(){ return response(['test' => 'ok'], 200);}); //for testing secured link
 
     //routes
+    Route::post('student/search', [Controller::class, 'search']);
     Route::resource('student', StudentController::class); //to access resource function in controller
     /*
     notes to use resource

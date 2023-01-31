@@ -12,6 +12,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
         //display with paginate
