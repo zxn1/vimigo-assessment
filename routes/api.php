@@ -28,9 +28,11 @@ Route::get('/login',[AuthController::class,'login'])->name('login');
 //1    //Accept             //application/json
 //2    //Authorization      //Bearer [token]
 
-/* Secured route - need authenticated first */
-Route::middleware('auth:api')->get('/user', function(Request $request)
+/* list(GROUP) of secured route - need authenticated first */
+Route::group(['middleware' => 'auth:api'], function()
 {
-    return $request->user();
+    Route::get('/test', function(){ return response(['test' => 'ok'], 200);}); //for testing secured link
+
+
 });
 /* end secured route */
