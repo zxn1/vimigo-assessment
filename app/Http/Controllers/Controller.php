@@ -61,7 +61,12 @@ class Controller extends BaseController
 
     public function bulkOperation(Request $request)
     {
+        if ($request->operation === 'refresh')
+        {
+            Student::truncate(); //remove all records
+        }
 
+        //add or update new records
         $request->validate([
             'file' => 'required|mimes:csv,xls,xlsx'
         ]); //ensure excel file only.
