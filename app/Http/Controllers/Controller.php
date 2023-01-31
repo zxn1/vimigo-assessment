@@ -18,28 +18,39 @@ class StudentImport implements ToModel
 {
     public function model(array $row)
     {
+        //old inefficient code
+        // //update features
+        // $student = Student::where([
+        //     ['name', '=', $row[0]],
+        //     ['email', '=', $row[1]]
+        // ]);
+
+        // if($student->exists())
+        // {
+        //     $student = Student::find($student->first()->id);
+        //     $student->name = $row[0];
+        //     $student->email = $row[1];
+        //     $student->address = $row[2];
+        //     $student->study_course = $row[3];
+        //     $student->save();
+        // } else {
+        //     return new Student([
+        //         'name'     => $row[0], //row 1 = data about name
+        //         'email'    => $row[1], //row 2 = data about email
+        //         'address'    => $row[2], //row 3 = data about address
+        //         'study_course'    => $row[3], //row 4 = data about course
+        //      ]);
+        // }
+
         //update features
-        $student = Student::where([
-            ['name', '=', $row[0]],
-            ['email', '=', $row[1]]
+        $student = Student::firstOrNew([
+            'name' => $row[0],
+            'email' => $row[1]
         ]);
 
-        if($student->exists())
-        {
-            $student = Student::find($student->first()->id);
-            $student->name = $row[0];
-            $student->email = $row[1];
-            $student->address = $row[2];
-            $student->study_course = $row[3];
-            $student->save();
-        } else {
-            return new Student([
-                'name'     => $row[0], //row 1 = data about name
-                'email'    => $row[1], //row 2 = data about email
-                'address'    => $row[2], //row 3 = data about address
-                'study_course'    => $row[3], //row 4 = data about course
-             ]);
-        }
+        $student->address = $row[2];
+        $student->study_course = $row[3];
+        $student->save();
     }
 }
 
