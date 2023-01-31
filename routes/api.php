@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function()
 
     //routes
     Route::post('student/search', [Controller::class, 'search']); //to do search record of students by email or name
+    Route::post('student/bulk', [Controller::class, 'bulkOperation']); //import CSV to do bulk operation
     Route::resource('student', StudentController::class); //to access resource function in controller
     /*
     notes to use resource

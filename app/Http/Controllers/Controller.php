@@ -9,6 +9,39 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Maatwebsite\Excel\Facades\Excel;
+use Maatwebsite\Excel\Concerns\ToModel;
+
+/*StudentImport class created to be use in Excel::import()
+For ToModel method syntax
+*/
+class StudentImport implements ToModel
+{
+    public function model(array $row)
+    {
+        //update features
+        $student = Student::where([
+            ['name', '=', $row[0]],
+            ['email', '=', $row[1]]
+        ]);
+
+        if($student->exists())
+        {
+            $student = Student::find($student->first()->id);
+            $student->name = $row[0];
+            $student->email = $row[1];
+            $student->address = $row[2];
+            $student->study_course = $row[3];
+            $student->save();
+        } else {
+            return new Student([
+                'name'     => $row[0], //row 1 = data about name
+                'email'    => $row[1], //row 2 = data about email
+                'address'    => $row[2], //row 3 = data about address
+                'study_course'    => $row[3], //row 4 = data about course
+             ]);
+        }
+    }
+}
 
 class Controller extends BaseController
 {
@@ -28,6 +61,14 @@ class Controller extends BaseController
 
     public function bulkOperation(Request $request)
     {
-        
+
+        $request->validate([
+            'file' => 'required|mimes:csv,xls,xlsx'
+        ]); //ensure excel file only.
+
+        $file = $request->file('file');
+        $data = Excel::import(new StudentImport, $file);
+
+        return response()->json(['success' => 'Student data imported successfully']);
     }
 }
